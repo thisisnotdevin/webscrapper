@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Title</title>
+    
+    <link rel="stylesheet" href="style.css" >
+
+</head>
+<body>
+    <div class="title">
+        <h3 onclick="activities()">activities</h3>
+        <h3 onclick="gatherWeekend()">events in nyc this weekend</h3>
+        <h3 onclick="art()">arts & culture experiences</h3>
+        <h3 onclick="attractions()">attractions & tours experiences</h3>
+        <h3 onclick="entertainment()">entertainment experiences</h3>
+        <h3 onclick="fitness()">fitness & wellness experiences</h3>
+        <h3 onclick="food()">food & drink experiences</h3>
+        <h3 onclick="music()">music & nightlife experiences</h3>
+        <h3 onclick="outdoor()">outdoor activities experiences</h3>
+        
+    </div>
+       <p class="displayData" id="data"></p>
+       <script type="text/javascript">
+        fetch('/eventMusic.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            for(var i=0; i < data.length; i++){
+                document.getElementById("data").innerHTML += `
+                <div class="mainbox">
+                    <img src="${data[i].pics}"><br />
+                    <div class="textbox"> 
+                    <h3>${data[i].title}</h3> 
+                    <p> ${data[i].date} </p>
+                    <p> ${data[i].subtitle}</p> <br /> PRICE:   ${data[i].price} <br />
+                    <a href="${data[i].url}">Learn more</a>  <br /><br />
+                    </div> 
+                </div>` 
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+       </script>
+       <script src="index.js"></script>
+</body>
+</html>
